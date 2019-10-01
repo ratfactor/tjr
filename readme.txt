@@ -1,0 +1,60 @@
+                       TEXT JUNIOR README
+
+This  is  tjr  ("Text  Junior"),  a  program that pre-processes a
+crazy-simple line-based input format as *roff output (tested with
+groff).
+
+This  readme  file  is also a test input for tjr.  It was created
+with this command:
+
+      ./tjr readme.tjr | groff -Tascii > readme.txt
+
+
+
+Why use Groff?
+=================================================================
+
+Groff  already knows how to do stuff like text filling and justi-
+fication.  So why would we  want  to  duplicate  that  work?   We
+wouldn't.
+
+
+This is a sub-heading
+-----------------------------------------------------------------
+
+The first stable version, 1.04, was announced in  November  1991.
+groff  was  developed  as  free software to provide an easily ob-
+tained replacement for the  standard  AT&T  troff/nroff  package,
+which  at  the time was proprietary, and was not always available
+even on branded UNIX systems.
+
+
+Preformatted text
+-----------------------------------------------------------------
+
+Also known code blocks, these chunks are so pleasant to look at:
+
+   _   _
+  | | (_)
+  | |_ _ _ __
+  | __| | '__|
+  | |_| | |
+   \__| |_|
+     _/ |
+    |__/
+
+
+Gosh, Figlet makes everything feel wonderful.
+
+
+How about a nice quote?
+-----------------------------------------------------------------
+
+      You know how the biggest paragraphs always get a  lot
+      of  attention  and the little verbs and nouns go into
+      the cave to  explode?   Well,  that's  how  it  goes.
+      Don't worry about it.
+
+      -Text Junior
+
+That's about it.  Really.  Enjoy?

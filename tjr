@@ -1,0 +1,97 @@
+#!/usr/bin/perl
+
+# tjr = Text Junior
+# A simple groff preprocessor intended for text output
+
+my $line_len = 65;
+my $pre = 0;
+my $quote = 0;
+my $prev_blank = 0;
+
+print ".ll $line_len\n"; # set line length max
+
+sub line_of{
+	my ($char) = @_;
+	# line must be one less than line length or groff will
+	# try to break line and fail and complain
+	print ($char x ($line_len));
+	print "\n";
+}
+
+while(<>) {
+	chomp;
+	s/\\/\\\\/g; # escape backslashes
+
+	# blank lines
+	if(/^$/ and not $pre){
+		if(not $prev_blank){ # condense multiple blank lines
+			print ".sp\n";
+		}
+		$prev_blank = 1; # well, it is now!
+		next;
+	}
+	$prev_blank = 0;
+
+	# preformatted/code block
+	if(/^```$/){
+		if($pre){
+			print ".fi\n"; # turn fill back on
+			print ".in -2\n"; # remove indent
+			$pre = 0;
+		}else{
+			print ".nf\n"; # turn "fill" mode off (text passes through as written)
+			print ".in +2\n"; # indent
+			$pre = 1;
+		}
+		next;
+	}
+	if($pre){
+		print "$_\n";
+		# just skip the rest of the rules
+		next;
+	}
+
+	# block quote 
+	if(/^"""$/){
+		if($quote){
+			print ".in -6\n"; # remove indent
+			print ".ll +6\n"; # restore line length
+			$quote = 0;
+		}else{
+			print ".in +6\n"; # indent
+			print ".ll -6\n"; # reduce line length to make right "margin"
+			$quote = 1;
+		}
+		next;
+	}
+
+	# title/headings
+	if(/^# (.*)$/){ # title
+		my $title = uc $1;
+		print ".ce\n"; # center next line
+		print "$title\n";
+		next;
+	}
+	if(/^## (.*)$/){ # heading
+		# "adjust" left, vertical space before, line after, resume justify
+		print ".sp 2\n"; # vertical space
+		print ".ad l\n"; # "adjust" to left text alignment
+		print "$1\n";
+		line_of '=';
+		print ".ad b\n"; # resume justified text
+		next;
+	}
+	if(/^### (.*)$/){ # sub-heading
+		# "adjust" left, vertical space before, line after, resume justify
+		print ".sp\n"; # vertical space
+		print ".ad l\n"; # "adjust" to left text alignment
+		print "$1\n";
+		line_of '-';
+		print ".ad b\n"; # resume justified text
+		next;
+	}
+
+	print "$_\n";
+}
+
+print ".pl 0\n"; # set page length to 0 so groff doesn't try to fill page
