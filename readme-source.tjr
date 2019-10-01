@@ -5,7 +5,7 @@ This is tjr ("Text Junior"), a program that pre-processes a crazy-simple line-ba
 This readme file is also a test input for tjr.  It was created with this command:
 
 ```
-    ./tjr readme.tjr | groff -Tascii > readme.txt
+    ./tjr readme-source.tjr | groff -Tascii > readme.txt
 ```
 
 ## Why use Groff?
