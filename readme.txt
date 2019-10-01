@@ -7,7 +7,7 @@ groff).
 This  readme  file  is also a test input for tjr.  It was created
 with this command:
 
-      ./tjr readme.tjr | groff -Tascii > readme.txt
+      ./tjr readme-source.tjr | groff -Tascii > readme.txt
 
 
 
