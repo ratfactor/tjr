@@ -1,5 +1,10 @@
                        TEXT JUNIOR README
 
+
+**MOVED!** Hello, I am moving my repos to http://ratfactor.com/repos/
+and setting them to read-only ("archived") on GitHub. Thank you, -Dave
+
+
 This  is  tjr  ("Text  Junior"),  a  program that pre-processes a
 crazy-simple line-based input format as *roff output (tested with
 groff).
